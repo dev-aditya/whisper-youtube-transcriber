@@ -1,0 +1,95 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+dist/
+downloads/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+wheels/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Jupyter
+.ipynb_checkpoints
+
+# Virtualenv
+.env
+.venv
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Pyright/Pylance
+.pyright/
+
+# Pyre
+.pyre/
+
+# IDEs
+.vscode/
+.vscode/*
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS/Windows
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# dotenv
+.env
+.env.*
+
+# mypy
+.mypy_cache/
+
+# Editor temp files
+*~
+*.swp
+
+# Python bytecode
+*.pyc
+
+# Build artifacts
+*.o
+*.a
+*.lib
+
+# Ignore the transcriptions folder (audio + transcripts)
+/transcriptions/
+
+# Optional: ignore local runtime files
+run_app.bat
+
+# Ignore compiled wheelhouse
+wheelhouse/
