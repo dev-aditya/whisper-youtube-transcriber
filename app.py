@@ -11,22 +11,39 @@ import tempfile
 from pathlib import Path
 import json
 from datetime import datetime
+import torch
 
 
 class WhisperTranscriber:
     def __init__(self):
         self.model = None
         self.model_name = None
+        self.device = self._detect_device()
         # use Python yt_dlp from the active environment
         self.yt_dlp = yt_dlp
+        print(f"🖥️  Device detected: {self.device}")
+
+    def _detect_device(self):
+        """Detect available device: CUDA GPU, Intel XPU, or CPU"""
+        if torch.cuda.is_available():
+            device = "cuda"
+            print(f"✓ CUDA GPU available: {torch.cuda.get_device_name(0)}")
+        elif hasattr(torch, "xpu") and torch.xpu.is_available():
+            device = "xpu"
+            print(f"✓ Intel XPU available")
+        else:
+            device = "cpu"
+            print(f"ℹ️  Using CPU (no GPU detected)")
+        return device
 
     def load_model(self, model_name):
         """Load Whisper model if not already loaded or if different model requested"""
         if self.model is None or self.model_name != model_name:
-            self.model = whisper.load_model(model_name)
+            print(f"Loading model '{model_name}' on {self.device}...")
+            self.model = whisper.load_model(model_name, device=self.device)
             self.model_name = model_name
-            return f"✓ Model '{model_name}' loaded successfully"
-        return f"✓ Model '{model_name}' already loaded"
+            return f"✓ Model '{model_name}' loaded successfully on {self.device}"
+        return f"✓ Model '{model_name}' already loaded on {self.device}"
 
     def get_video_title(self, url):
         """Get YouTube video title for folder naming"""
@@ -72,7 +89,9 @@ class WhisperTranscriber:
                     total = d.get("total_bytes") or d.get("total_bytes_estimate")
                     if total:
                         pct = downloaded / total * 100 if downloaded and total else 0
-                        print(f"[download] {filename} {pct:0.1f}% ({downloaded}/{total} bytes)")
+                        print(
+                            f"[download] {filename} {pct:0.1f}% ({downloaded}/{total} bytes)"
+                        )
                     else:
                         print(f"[download] {filename} bytes={downloaded}")
                 elif status == "finished":
@@ -129,6 +148,7 @@ class WhisperTranscriber:
             progress(0, desc="Loading model...")
             print(f"\n{'='*60}")
             print(f"🎙️ Loading Whisper model: {model_name}")
+            print(f"🖥️  Device: {self.device}")
             print(f"{'='*60}")
             self.load_model(model_name)
 
@@ -549,4 +569,8 @@ with gr.Blocks(title="YouTube to Whisper Transcription", theme=gr.themes.Soft())
 if __name__ == "__main__":
     print("🚀 Starting Whisper Transcription UI...")
     print("📍 Your yt-dlp.exe will be used for YouTube downloads")
+    print(f"🖥️  Compute device: {transcriber.device}")
+    if transcriber.device == "cuda":
+        print(f"   GPU: {torch.cuda.get_device_name(0)}")
+        print(f"   CUDA Version: {torch.version.cuda}")
     app.launch(share=False, inbrowser=True, server_name="127.0.0.1", server_port=7860)
