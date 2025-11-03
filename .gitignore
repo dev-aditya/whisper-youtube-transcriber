@@ -88,8 +88,5 @@ Thumbs.db
 # Ignore the transcriptions folder (audio + transcripts)
 /transcriptions/
 
-# Optional: ignore local runtime files
-run_app.bat
-
 # Ignore compiled wheelhouse
 wheelhouse/
