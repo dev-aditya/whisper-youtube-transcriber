@@ -13,13 +13,31 @@ A user-friendly web interface to download YouTube audio and transcribe it using 
 
 ## 🚀 Quick Start
 
-### 1. Create the Environment
+## Prerequisites
 
-First, set up the `whisper` conda environment using the provided file. This ensures you have all the correct packages.
+- Conda or Miniconda
+- FFmpeg (required for audio processing)
 
-```powershell
+## Installation
+
+### 1. Create Conda Environment
+
+First, create the conda environment from the `environment.yml` file:
+
+```bash
 conda env create -f environment.yml
+conda activate whisper
 ```
+
+### 2. Install PyTorch
+
+The PyTorch installation varies by platform. Choose the appropriate method for your system (CUDA/Intel/AMD)
+> **Note**: Visit [PyTorch's official website](https://pytorch.org/get-started/locally/) for the latest installation commands and CUDA version compatibility.
+
+### 3. Install FFmpeg
+
+FFmpeg is required for audio processing. Install it based on your platform. Instructions on FFmpeg website [ffmpeg.org](https://ffmpeg.org/download.html)
+
 
 ### 2. Run the Application
 
