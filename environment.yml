@@ -90,5 +90,5 @@ dependencies:
       - urllib3==2.5.0
       - uvicorn==0.38.0
       - websockets==15.0.1
-      - yt-dlp==2025.10.22
+      - yt-dlp==2026.02.04
 prefix: C:\Users\dev\miniconda3\envs\whisper
